@@ -1,17 +1,44 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser, fetchUsers } from '../store';
 import Button from './Button';
 import Skeleton from './Skeleton';
 
 const UsersList = () => {
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
+  const [loadingUsersError, setLoadingUsersError] = useState(null);
   const dispatch = useDispatch();
-  const { isLoading, data, error } = useSelector((state) => {
+  const { data } = useSelector((state) => {
     return state.users;
   });
 
+  // 步步版
+  // useEffect(() => {
+  //   setIsLoadingUsers(true);
+  //   // console.log(dispatch(fetchUsers())); //這是一個 Promise
+  //   dispatch(fetchUsers())
+  //     .unwrap() // RTK 提供的函式，會解開 Promise
+  //     .then(() => {
+  //       // setIsLoadingUsers(false); 統一在 finally 執行
+  //       console.log('Success');
+  //     })
+  //     .catch((err) => {
+  //       setLoadingUsersError(err);
+  //       // setIsLoadingUsers(false);
+  //       console.log('Fail');
+  //     })
+  //     .finally(() => {
+  //       setIsLoadingUsers(false);
+  //     });
+  // }, [dispatch]);
+
+  // 精簡版
   useEffect(() => {
-    dispatch(fetchUsers()); //要包在 dispatch 裡面
+    setIsLoadingUsers(true);
+    dispatch(fetchUsers())
+      .unwrap() // RTK 提供的函式，會解開 Promise
+      .catch((err) => setLoadingUsersError(err))
+      .finally(() => setIsLoadingUsers(false)); // 無論成功失敗，必然會執行的放此
   }, [dispatch]);
 
   const handleUserAdd = () => {
@@ -19,11 +46,11 @@ const UsersList = () => {
     dispatch(addUser());
   };
 
-  if (isLoading) {
+  if (isLoadingUsers) {
     return <Skeleton times={6} className='h-10 w-full' />;
   }
 
-  if (error) {
+  if (loadingUsersError) {
     return <div>Error fetching data...</div>;
   }
 
