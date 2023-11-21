@@ -8,7 +8,7 @@ const fetchUsers = createAsyncThunk('users/fetch', async () => {
   const res = await axios.get(baseUrl)
 
   // DEV ONLY!!!
-  await pause(1000)
+  await pause(6000)
 
   return res.data // what return here will become payload
 })
