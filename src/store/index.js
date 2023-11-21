@@ -7,4 +7,5 @@ export const store = configureStore({
   }
 })
 
-export * from './thunks/fetchUsers' // 所有在 fetchUsers 內 export 的，都透過這裡 export 出去
+export * from './thunks/fetchUsers'
+export * from './thunks/addUser'
