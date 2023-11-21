@@ -6,3 +6,5 @@ export const store = configureStore({
     users: usersReducer,
   }
 })
+
+export * from './thunks/fetchUsers' // 所有在 fetchUsers 內 export 的，都透過這裡 export 出去
