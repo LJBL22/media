@@ -7,30 +7,12 @@ import Skeleton from './Skeleton';
 const UsersList = () => {
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
   const [loadingUsersError, setLoadingUsersError] = useState(null);
+  const [isCreatingUser, setIsCreatingUser] = useState(false);
+  const [creatingUsersError, setCreatingUsersError] = useState(null);
   const dispatch = useDispatch();
   const { data } = useSelector((state) => {
     return state.users;
   });
-
-  // 步步版
-  // useEffect(() => {
-  //   setIsLoadingUsers(true);
-  //   // console.log(dispatch(fetchUsers())); //這是一個 Promise
-  //   dispatch(fetchUsers())
-  //     .unwrap() // RTK 提供的函式，會解開 Promise
-  //     .then(() => {
-  //       // setIsLoadingUsers(false); 統一在 finally 執行
-  //       console.log('Success');
-  //     })
-  //     .catch((err) => {
-  //       setLoadingUsersError(err);
-  //       // setIsLoadingUsers(false);
-  //       console.log('Fail');
-  //     })
-  //     .finally(() => {
-  //       setIsLoadingUsers(false);
-  //     });
-  // }, [dispatch]);
 
   // 精簡版
   useEffect(() => {
@@ -42,8 +24,11 @@ const UsersList = () => {
   }, [dispatch]);
 
   const handleUserAdd = () => {
-    //call dispatch & run thunk at the same time
-    dispatch(addUser());
+    setIsCreatingUser(true);
+    dispatch(addUser())
+      .unwrap()
+      .catch((err) => setCreatingUsersError(err))
+      .finally(() => setIsCreatingUser(false));
   };
 
   if (isLoadingUsers) {
@@ -69,7 +54,12 @@ const UsersList = () => {
     <div>
       <div className='flex flex-row justify-between m-3'>
         <h1 className='m-2 text-xl'>Users</h1>
-        <Button onClick={handleUserAdd}>+ Add User</Button>
+        {isCreatingUser ? (
+          <Button>Creating user...</Button>
+        ) : (
+          <Button onClick={handleUserAdd}>+ Add User</Button>
+        )}
+        {creatingUsersError && 'Error creating user...'}
       </div>
       {renderedUsers}
     </div>
