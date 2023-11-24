@@ -7,9 +7,9 @@ export const useThunk = (thunk) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
 
-  const runThunk = useCallback(() => {
+  const runThunk = useCallback((arg) => {
     setIsLoading(true);
-    dispatch(thunk())
+    dispatch(thunk(arg)) // 這裡不加就會一直找 bug ＱＱ
       .unwrap()
       .catch((err) => setError(err))
       .finally(() => setIsLoading(false));
