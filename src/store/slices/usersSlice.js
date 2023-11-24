@@ -38,8 +38,9 @@ const usersSlice = createSlice({
     });
     builder.addCase(removeUser.fulfilled, (state, action) => {
       state.isLoading = false;
-      // FIX ME!! LATER ~先以實際回傳結果來判別該如何處理
-      console.log(action);
+      state.data = state.data.filter((user) => {
+        return user.id !== action.payload.id;
+      });
     });
     builder.addCase(removeUser.rejected, (state, action) => {
       state.isLoading = false;
