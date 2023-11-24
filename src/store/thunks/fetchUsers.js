@@ -1,11 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-const baseUrl = 'http://localhost:3000/users'
+import { jsonServerUrl } from "../../hook/use-thunk";
 
 //base type //users/fetch/pending 不會經常出現，是 automatically generated 
 const fetchUsers = createAsyncThunk('users/fetch', async () => {
-  const res = await axios.get(baseUrl)
+  const res = await axios.get(jsonServerUrl)
 
   // DEV ONLY!!!
   await pause(4000)
