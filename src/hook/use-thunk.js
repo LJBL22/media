@@ -20,4 +20,4 @@ export const useThunk = (thunk) => {
   return [runThunk, isLoading, error]; // （1)傳遞出去
 };
 
-export const jsonServerUrl = 'http://localhost:3000/users'
+export const jsonServerUrl = 'http://localhost:3000'

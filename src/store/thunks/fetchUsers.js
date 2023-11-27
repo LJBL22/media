@@ -4,7 +4,7 @@ import { jsonServerUrl } from "../../hook/use-thunk";
 
 //base type //users/fetch/pending 不會經常出現，是 automatically generated 
 const fetchUsers = createAsyncThunk('users/fetch', async () => {
-  const res = await axios.get(jsonServerUrl)
+  const res = await axios.get(`${jsonServerUrl}/users`)
 
   // DEV ONLY!!!
   await pause(4000)
