@@ -10,7 +10,7 @@ const albumsApi = createApi({
   // endpoints: 每一個行動都要建立，並分為 query & mutation
   endpoints(builder) {
     return {
-      fetchAlbums: builder.query({
+      fetchAlbums: builder.query({ // here to auto-generate a hook
         query: (user) => {
           return {
             url: 'albums',
@@ -25,5 +25,5 @@ const albumsApi = createApi({
   }
 })
 
-export const { useFetchAlbumsQuery } = albumsApi;
+export const { useFetchAlbumsQuery } = albumsApi;// this is the hook
 export { albumsApi }
