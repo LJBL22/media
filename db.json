@@ -3,8 +3,22 @@
     {
       "id": 1,
       "name": "Ponyo"
+    },
+    {
+      "name": "Sandy Lowe",
+      "id": 2
+    },
+    {
+      "name": "Willis Larson",
+      "id": 3
     }
   ],
-  "albums": [],
+  "albums": [
+    {
+      "id": 10,
+      "title": "BEST ALBUM",
+      "userId": 1
+    }
+  ],
   "photos": []
 }
