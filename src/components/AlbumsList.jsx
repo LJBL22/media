@@ -1,4 +1,3 @@
-import { GoTrash } from 'react-icons/go';
 import { useFetchAlbumsQuery, useAddAlbumMutation } from '../store';
 import Button from './Button';
 import ExpandablePanel from './ExpandablePanel';
@@ -6,9 +5,8 @@ import Skeleton from './Skeleton';
 
 const AlbumsList = ({ user }) => {
   const { data, error, isLoading } = useFetchAlbumsQuery(user); // arg: user, specify the user
-  useFetchAlbumsQuery(user); // temporary: to check fetchAlbums is a key
   const [addAlbum, results] = useAddAlbumMutation();
-  // console.log(results);// 檢查
+  // console.log(results); // 檢查以取 isLoading 狀態
   const handleAddAlbum = () => {
     addAlbum(user);
   };
@@ -32,9 +30,11 @@ const AlbumsList = ({ user }) => {
 
   return (
     <div>
-      <div>
-        Albums For {user.name}
-        <Button onClick={handleAddAlbum}>+ Add Album</Button>
+      <div className='m-2 flex flex-row items-center justify-between'>
+        <h3 className='text-lg font-bold'>Albums For {user.name}</h3>
+        <Button onClick={handleAddAlbum} loading={results.isLoading}>
+          + Add Album
+        </Button>
       </div>
       {content}
     </div>
