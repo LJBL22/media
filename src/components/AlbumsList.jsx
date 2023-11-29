@@ -1,12 +1,11 @@
 import { useFetchAlbumsQuery, useAddAlbumMutation } from '../store';
+import AlbumsListItem from './AlbumsListItem';
 import Button from './Button';
-import ExpandablePanel from './ExpandablePanel';
 import Skeleton from './Skeleton';
 
 const AlbumsList = ({ user }) => {
-  const { data, error, isLoading } = useFetchAlbumsQuery(user); // arg: user, specify the user
+  const { data, error, isLoading } = useFetchAlbumsQuery(user);
   const [addAlbum, results] = useAddAlbumMutation();
-  // console.log(results); // 檢查以取 isLoading 狀態
   const handleAddAlbum = () => {
     addAlbum(user);
   };
@@ -18,13 +17,7 @@ const AlbumsList = ({ user }) => {
     content = `<div>Error:${error}</div>`;
   } else {
     content = data.map((album) => {
-      const header = <div>{album.title}</div>;
-      // debugging by checking the react component of devtool
-      return (
-        <ExpandablePanel header={header} key={album.id}>
-          list of photos in the album
-        </ExpandablePanel>
-      );
+      return <AlbumsListItem album={album} key={album.id} />;
     });
   }
 
