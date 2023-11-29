@@ -1,13 +1,16 @@
-import { useFetchAlbumsQuery } from '../store';
+import { GoTrash } from 'react-icons/go';
+import { useFetchAlbumsQuery, useAddAlbumMutation } from '../store';
+import Button from './Button';
 import ExpandablePanel from './ExpandablePanel';
 import Skeleton from './Skeleton';
 
 const AlbumsList = ({ user }) => {
-  // 直接命名並印出 result 以看出帶有多少資訊
-  // const result = useFetchAlbumsQuery(user); // arg: user, specify the user
-  // console.log(result);
-
   const { data, error, isLoading } = useFetchAlbumsQuery(user); // arg: user, specify the user
+  const [addAlbum, results] = useAddAlbumMutation();
+
+  const handleAddAlbum = () => {
+    addAlbum(user);
+  };
 
   let content;
   if (isLoading) {
@@ -27,7 +30,10 @@ const AlbumsList = ({ user }) => {
 
   return (
     <div>
-      <div>Albums For {user.name}</div>
+      <div>
+        Albums For {user.name}
+        <Button onClick={handleAddAlbum}>+ Add Album</Button>
+      </div>
       {content}
     </div>
   );
