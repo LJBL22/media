@@ -10,7 +10,7 @@ const pause = (duration) => {
 }
 
 const albumsApi = createApi({
-  reducerPath: 'album',
+  reducerPath: 'albums',
   baseQuery: fetchBaseQuery({
     baseUrl: jsonServerUrl,
     // REMOVE FOR PRODUTION
@@ -22,7 +22,6 @@ const albumsApi = createApi({
   endpoints(builder) {
     return {
       addAlbum: builder.mutation({
-        // invalidatesTags: ['Album'], // the same as mutation
         invalidatesTags: (result, error, user) => {
           return [{ type: 'Album', id: user.id }]
         },
@@ -34,8 +33,15 @@ const albumsApi = createApi({
           }
         }
       }),
+      removeAlbum: builder.mutation({
+        query: (album) => {
+          return {
+            url: `/albums/${album.id}`,
+            method: 'DELETE',
+          }
+        }
+      }),
       fetchAlbums: builder.query({
-        // providesTags: ['Album'], // convention: capital letter & no s
         providesTags: (result, error, user) => {
           return [{ type: 'Album', id: user.id }]
         },
@@ -53,5 +59,5 @@ const albumsApi = createApi({
   }
 })
 
-export const { useFetchAlbumsQuery, useAddAlbumMutation } = albumsApi;
+export const { useFetchAlbumsQuery, useAddAlbumMutation, useRemoveAlbumMutation } = albumsApi;
 export { albumsApi }
