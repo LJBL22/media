@@ -21,8 +21,9 @@ const AlbumsList = ({ user }) => {
   } else {
     content = data.map((album) => {
       const header = <div>{album.title}</div>;
+      // debugging by checking the react component of devtool
       return (
-        <ExpandablePanel header={header} key={user.id}>
+        <ExpandablePanel header={header} key={album.id}>
           list of photos in the album
         </ExpandablePanel>
       );
