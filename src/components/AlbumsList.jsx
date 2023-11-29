@@ -6,8 +6,9 @@ import Skeleton from './Skeleton';
 
 const AlbumsList = ({ user }) => {
   const { data, error, isLoading } = useFetchAlbumsQuery(user); // arg: user, specify the user
+  useFetchAlbumsQuery(user); // temporary: to check fetchAlbums is a key
   const [addAlbum, results] = useAddAlbumMutation();
-
+  // console.log(results);// 檢查
   const handleAddAlbum = () => {
     addAlbum(user);
   };

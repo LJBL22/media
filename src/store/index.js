@@ -15,6 +15,9 @@ export const store = configureStore({
   }
 })
 
+// temporary: to check queries-> fetchAlbums is a key
+window.store = store
+
 setupListeners(store.dispatch) // step 7
 
 export * from './thunks/fetchUsers'
