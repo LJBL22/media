@@ -34,6 +34,10 @@ const albumsApi = createApi({
         }
       }),
       removeAlbum: builder.mutation({
+        invalidatesTags: (result, error, album) => {
+          console.log(album); // this method is an easy way but not cover all 
+          return [{ type: 'Album', id: album.userId }] // happen to have userId property 
+        },
         query: (album) => {
           return {
             url: `/albums/${album.id}`,
