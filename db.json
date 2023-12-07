@@ -15,10 +15,21 @@
   ],
   "albums": [
     {
-      "id": 10,
+      "id": 1,
       "title": "BEST ALBUM",
       "userId": 1
     }
   ],
-  "photos": []
+  "photos": [
+    {
+      "id": 1,
+      "url": "https://upload.wikimedia.org/wikipedia/zh/7/76/Adele_-_30.png",
+      "albumId": 1
+    },
+    {
+      "id": 2,
+      "url": "https://hips.hearstapps.com/hmg-prod/images/adele-makeup-1632125637.png?resize=300:*",
+      "albumId": 1
+    }
+  ]
 }
