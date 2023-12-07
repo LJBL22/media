@@ -4,14 +4,16 @@ import Button from './Button';
 import Skeleton from './Skeleton';
 
 const AlbumsList = ({ user }) => {
-  const { data, error, isLoading } = useFetchAlbumsQuery(user);
+  const { data, error, isFetching } = useFetchAlbumsQuery(user);
+  // 整包包含： currentData, data, isError, isFetching, isLoading, isSuccess, isUnitialized, refetch, status
+  // isLoading 只有第一次展開當下會是 true，而 isFetching 在展開、新增、刪除的當下都會有 true。
   const [addAlbum, results] = useAddAlbumMutation();
   const handleAddAlbum = () => {
     addAlbum(user);
   };
 
   let content;
-  if (isLoading) {
+  if (isFetching) {
     content = <Skeleton times={3} className='h-10 w-full' />;
   } else if (error) {
     content = `<div>Error:${error}</div>`;

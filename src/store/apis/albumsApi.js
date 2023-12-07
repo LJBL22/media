@@ -23,7 +23,7 @@ const albumsApi = createApi({
     return {
       addAlbum: builder.mutation({
         invalidatesTags: (result, error, user) => {
-          return [{ type: 'Album', id: user.id }]
+          return [{ type: 'UsersAlbums', id: user.id }]
         },
         query: (user) => {
           return {
@@ -34,9 +34,8 @@ const albumsApi = createApi({
         }
       }),
       removeAlbum: builder.mutation({
-        invalidatesTags: (result, error, album) => {
-          console.log(album); // this method is an easy way but not cover all 
-          return [{ type: 'Album', id: album.userId }] // happen to have userId property 
+        invalidatesTags: (result, error, album) => { // if invalidate, refetch (see auto re-fetching 官網章節)
+          return [{ type: 'Album', id: album.id }]
         },
         query: (album) => {
           return {
@@ -47,7 +46,12 @@ const albumsApi = createApi({
       }),
       fetchAlbums: builder.query({
         providesTags: (result, error, user) => {
-          return [{ type: 'Album', id: user.id }]
+          const tags = result.map(album => {
+            return { type: 'Album', id: album.id }
+          })
+          tags.push({ type: 'UsersAlbums', id: user.id })
+          // console.log(tags); //to check 在此處改成利用 cache tags 來識別、更優良的設計 > 更改 invalidateTags
+          return tags;
         },
         query: (user) => {
           return {
