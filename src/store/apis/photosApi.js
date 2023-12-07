@@ -10,7 +10,6 @@ const photosApi = createApi({
     return {
       fetchPhotos: builder.query({
         providesTags: (result, error, album) => {
-          console.log(album)
           return [{ type: 'SongPhotos', id: album.id }]
         },
         query: (album) => {
