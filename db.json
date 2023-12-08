@@ -18,6 +18,16 @@
       "id": 1,
       "title": "BEST ALBUM",
       "userId": 1
+    },
+    {
+      "userId": 3,
+      "title": "Fantastic Soft Cheese",
+      "id": 2
+    },
+    {
+      "userId": 2,
+      "title": "Gorgeous Concrete Soap",
+      "id": 3
     }
   ],
   "photos": [
@@ -30,6 +40,21 @@
       "id": 2,
       "url": "https://hips.hearstapps.com/hmg-prod/images/adele-makeup-1632125637.png?resize=300:*",
       "albumId": 1
+    },
+    {
+      "albumId": 2,
+      "url": "https://picsum.photos/seed/kNXEdt/150/150",
+      "id": 5
+    },
+    {
+      "albumId": 2,
+      "url": "https://picsum.photos/seed/NUlc3wimBf/150/150",
+      "id": 7
+    },
+    {
+      "albumId": 3,
+      "url": "https://picsum.photos/seed/EouunAFE4/150/150",
+      "id": 8
     }
   ]
 }

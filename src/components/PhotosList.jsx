@@ -1,6 +1,7 @@
 import Button from './Button';
 import { useAddPhotoMutation, useFetchPhotosQuery } from '../store';
 import Skeleton from './Skeleton';
+import PhotosListItem from './PhotosListItem';
 
 const PhotosList = ({ album }) => {
   const { isFetching, error, data } = useFetchPhotosQuery(album);
@@ -18,11 +19,7 @@ const PhotosList = ({ album }) => {
     content = `<div>Error:${error}</div>`;
   } else {
     content = data.map((photo) => {
-      return (
-        <div className='relative m-2' key={photo.id}>
-          <img className='h-20 w-20' src={photo.url} alt='random pic' />
-        </div>
-      );
+      return <PhotosListItem photo={photo} key={photo.id} />;
     });
   }
 
