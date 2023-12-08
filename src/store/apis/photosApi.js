@@ -25,7 +25,7 @@ const photosApi = createApi({
       }),
       removePhoto: builder.mutation({
         invalidatesTags: (result, error, photo) => {
-          return [{ type: 'PhotoList', id: photo.id }]
+          return [{ type: 'Photo', id: photo.id }] // BUG!! type should be 'Photo', not 'PhotoList' => 以至於雖然 network 有執行，但要重整才會看到渲染
         },
         query: (photo) => {
           return {

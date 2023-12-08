@@ -6,18 +6,18 @@ import { jsonServerUrl } from "../../hook/use-thunk";
 const fetchUsers = createAsyncThunk('users/fetch', async () => {
   const res = await axios.get(`${jsonServerUrl}/users`)
 
-  // DEV ONLY!!!
-  await pause(4000)
+  // // DEV ONLY!!!
+  // await pause(4000)
 
   return res.data // what return here will become payload
 })
 
-// DEV ONLY!!! //helper function
-const pause = (duration) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, duration) // 寫法注意！
-  })
-}
+// // DEV ONLY!!! //helper function
+// const pause = (duration) => {
+//   return new Promise((resolve) => {
+//     setTimeout(resolve, duration) // 寫法注意！
+//   })
+// }
 
 
 export { fetchUsers }
